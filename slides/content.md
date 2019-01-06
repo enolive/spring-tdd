@@ -15,7 +15,7 @@
 
 ## What about JEE?
 
-[![ranting](resources/spring-vs-jee.png)](https://twitter.com/agoncal/status/949964624962772992)
+[![Tweet JEE vs Spring Testing](resources/spring-vs-jee.png)](https://twitter.com/agoncal/status/949964624962772992)
 
 [Link to Blog Post](https://antoniogoncalves.org/2018/01/16/java-ee-vs-spring-testing/)
 
@@ -59,10 +59,10 @@ public class MyServiceTests {
 ## Scope of this talk
 
 * Live Coding
-* create a Spring Boot Project from scratch
+* Spring Boot Project from scratch
 * Fizz-Buzz
 * TDD micro-cycle
-* Java with Maven
+* Java with Maven+JUnit+Lombok
 
 <--->
 
@@ -97,6 +97,12 @@ Hipster stuff 😉
 
 <--->
 
+## Structure of the App
+
+![Structure of the Application](resources/FizzBuzz.png)
+
+<--->
+
 ## Let's start 👨‍💻...
 
 <--->
@@ -104,4 +110,4 @@ Hipster stuff 😉
 ## 💗 for joining me!
 
 * <i class="fa fa-book" aria-hidden="true"></i>&nbsp;[Spring Boot Testing](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
-* <i class="fa fa-youtube" aria-hidden="true"></i>&nbsp;[Screen Cast (done by me)](https://youtu.be/RDRM4lnNMVo)
+* <i class="fa fa-youtube" aria-hidden="true"></i>&nbsp;[My Screen Cast on this topic](https://youtu.be/RDRM4lnNMVo)

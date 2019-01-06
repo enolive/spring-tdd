@@ -1,0 +1,10 @@
+@startuml
+
+class FizzBuzzApplication <<Bootstrap>>
+class FizzBuzzController <<REST>>
+class FizzBuzzCalculator <<Service>>
+
+FizzBuzzApplication --> FizzBuzzController : hosts
+FizzBuzzController --> FizzBuzzCalculator : uses
+
+@enduml
