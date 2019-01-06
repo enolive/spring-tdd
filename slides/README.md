@@ -1,6 +1,6 @@
 # Slides for TDD with Spring Boot
 
-This are my slides.
+These are my slides.
 
 ## Installation and Running
 
