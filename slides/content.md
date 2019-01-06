@@ -101,6 +101,7 @@ Hipster stuff 😉
 
 <--->
 
-## Thanks for joining me!
+## 💗 for joining me!
 
-[Spring Boot Testing Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
+* <i class="fa fa-book" aria-hidden="true"></i>&nbsp;[Spring Boot Testing](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
+* <i class="fa fa-youtube" aria-hidden="true"></i>&nbsp;[Screen Cast (done by me)](https://youtu.be/RDRM4lnNMVo)
