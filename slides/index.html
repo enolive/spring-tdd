@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>TDD with Spring Boot</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="resources/DATEV-SCC-Logo.ico">
+
+    <link rel="stylesheet" href="css/reveal.css">
+
+    <!-- Overall theme -->
+    <link rel="stylesheet" href="css/theme/datev-scc.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Icons from "Font Awesome" -->
+    <link rel="stylesheet" href="lib/font/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <!-- Nice-to-have plugin for adding language 'badge' to code blocks -->
+    <link rel="stylesheet" href="plugin/badges/badges.css">
+
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--
+        If you're tweaking the custom.css you might also want to tweak the pdf output. The default pdf is located here: css/print/pdf.css. Add a file css/custom-pdf.css...
+    -->
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!--
+            NOTE on data-separator:
+                Don't use default `---` or `--` if you want to use tables in markdown!
+        -->
+        <section data-markdown="content.md"
+                 data-separator="^\n<--->$"
+                 data-separator-vertical="^\n<-->$"
+                 data-separator-notes="^Note:"
+                 data-charset="utf8">
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        //
+        // NOTE: A list of plugins: https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware
+        //
+        // NOTE: I added the following plugins:
+        //
+        // 	- tagcloud: https://github.com/sebhildebrandt/reveal.js-tagcloud-plugin
+        //	- badges: https://github.com/ThomasWeinert/reveal-badges
+        // Just comment them if you don't need them...
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {src: 'plugin/tagcloud/tagcloud.js', async: true},
+            {src: 'plugin/badges/badges.js'}
+        ],
+        badges: {
+            path: 'plugin/badges',
+            defaults: {
+                position: 'tr'
+            },
+            languages: {
+                csharp: {
+                    label: 'C#'
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
