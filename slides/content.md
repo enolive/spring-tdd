@@ -11,7 +11,7 @@
 * All features testable
 * no need for 3rd party libraries and tools
 
-<--->
+<-->
 
 ## What about JEE?
 
@@ -64,7 +64,7 @@ public class MyServiceTests {
 * TDD micro-cycle
 * Java with Maven+JUnit+Lombok
 
-<--->
+<-->
 
 ## Out of scope
 
@@ -95,7 +95,7 @@ Hipster stuff 😉
     Configuration
 <section>
 
-<--->
+<-->
 
 ## Structure of the App
 
