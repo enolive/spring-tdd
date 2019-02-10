@@ -51,7 +51,7 @@ class FizzBuzzControllerTests {
     void getNumberSequenceWithTooLargeLimit() throws Exception {
         mvc.perform(get("/api/v1/fizz-buzz/numbers").param("limit", "100000"))
            .andExpect(status().isBadRequest())
-           .andExpect(status().reason(Matchers.endsWith("must be less than or equal to 99999")));
+           .andExpect(status().reason("limit must be less than 10000."));
         verify(calculator, never()).sequence(anyInt());
     }
 }
