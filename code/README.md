@@ -13,6 +13,6 @@ java -jar target/fizz-buzz-0.0.1-SNAPSHOT.jar
 ## Some hipster things I've done here
 
 * [VAVR](https://www.vavr.io/) for fancy FP in Java
-* Bean Validation
+* Validation using the Either monad
 * [Data driven tests with JUnit5](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests)
 * Own Argument Converter for String Arrays
