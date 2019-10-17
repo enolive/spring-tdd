@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.function.Function.identity;
 
 @RestController
 @RequestMapping("/api/v1/fizz-buzz")
@@ -24,27 +23,30 @@ public class FizzBuzzController {
   }
 
   @GetMapping("/number/{input}")
-  public String getSingleNumber(@PathVariable int input) {
-    return calculator.single(input);
+  public Mono<String> getSingleNumber(@PathVariable int input) {
+    return Mono.just(input)
+               .map(calculator::single);
   }
 
   @GetMapping("/numbers")
-  public List<String> getNumberSequence(
+  public Mono<List<String>> getNumberSequence(
       @RequestParam(required = false, defaultValue = "100") int limit) {
     return validateInputs(limit).map(calculator::sequence)
-                                .map(this::asJavaList)
-                                .getOrElseThrow(identity());
+                                .fold(Mono::error, this::wrapResultListInMono);
   }
 
   private Either<ResponseStatusException, Integer> validateInputs(int limit) {
-    return Either.<ResponseStatusException, Integer>right(limit).filterOrElse(
-        l -> l < 10_000,
-        val -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "limit must be less than 10000."));
+    return Either
+        .<ResponseStatusException, Integer>right(limit)
+        .filterOrElse(
+            l -> l < 10_000,
+            val -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "limit must be less than 10000."));
   }
 
-  private List<String> asJavaList(Stream<String> sequence) {
+  private Mono<List<String>> wrapResultListInMono(Stream<String> sequence) {
     return Option.of(sequence)
-                 .map(Stream::asJava)
-                 .getOrElse(Collections.emptyList());
+                 .map(Flux::fromIterable)
+                 .map(Flux::collectList)
+                 .getOrElse(Mono.empty());
   }
 }

@@ -3,21 +3,15 @@ package de.datev.fizzbuzz
 import io.vavr.collection.Stream
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.ResultActions
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
+import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-
-@SuppressWarnings("GroovyAssignabilityCheck")
-@WebMvcTest(controllers = FizzBuzzController)
+@WebFluxTest(controllers = FizzBuzzController)
 class FizzBuzzControllerTest extends Specification {
   @Autowired
-  private MockMvc mockMvc
+  private WebTestClient testClient
   @SpringBean
   private FizzBuzzCalculator calculator = Mock()
 
@@ -26,12 +20,14 @@ class FizzBuzzControllerTest extends Specification {
     int input = ObjectMother.aNumberUpTo(9000)
 
     when: 'GET single number is called'
-    ResultActions result = mockMvc.perform(get("/api/v1/fizz-buzz/number/$input"))
+    WebTestClient.ResponseSpec result = testClient.get()
+                                                  .uri("/api/v1/fizz-buzz/number/$input")
+                                                  .exchange()
 
     then: 'status is OK'
-    result.andExpect(status().isOk())
+    result.expectStatus().isOk()
     and: 'content is as expected'
-    result.andExpect(content().string('result!'))
+    result.expectBody(String).isEqualTo('result!')
     and: 'calculator is called'
     1 * calculator.single(input) >> 'result!'
   }
@@ -41,12 +37,14 @@ class FizzBuzzControllerTest extends Specification {
     int limit = ObjectMother.aNumberUpTo(9000)
 
     when: 'GET number sequence is called'
-    ResultActions result = mockMvc.perform(get("/api/v1/fizz-buzz/numbers?limit=$limit"))
+    WebTestClient.ResponseSpec result = testClient.get()
+                                                  .uri("/api/v1/fizz-buzz/numbers?limit=$limit")
+                                                  .exchange()
 
     then: 'status is OK'
-    result.andExpect(status().isOk())
+    result.expectStatus().isOk()
     and: 'content is as expected'
-    result.andExpect(content().json('["first", "second"]'))
+    result.expectBody().json('["first", "second"]')
     and: 'calculator is called'
     1 * calculator.sequence(limit) >> Stream.of("first", "second")
   }
@@ -55,10 +53,12 @@ class FizzBuzzControllerTest extends Specification {
     given: 'a default limit'
     int defaultLimit = 100
     when: 'GET number sequence is called without explicitly specifying the limit'
-    ResultActions result = mockMvc.perform(get("/api/v1/fizz-buzz/numbers"))
+    WebTestClient.ResponseSpec result = testClient.get()
+                                                  .uri("/api/v1/fizz-buzz/numbers")
+                                                  .exchange()
 
     then: 'status is OK'
-    result.andExpect(status().isOk())
+    result.expectStatus().isOk()
     and: 'calculator is called with default limit'
     1 * calculator.sequence(defaultLimit)
   }
@@ -66,12 +66,14 @@ class FizzBuzzControllerTest extends Specification {
   @Unroll
   def "get sequence with too large limit #limit fails"() {
     when: 'GET number sequence is called'
-    ResultActions result = mockMvc.perform(get("/api/v1/fizz-buzz/numbers?limit=$limit"))
+    WebTestClient.ResponseSpec result = testClient.get()
+                                                  .uri("/api/v1/fizz-buzz/numbers?limit=$limit")
+                                                  .exchange()
 
     then: 'status is Bad Request'
-    result.andExpect(status().isBadRequest())
+    result.expectStatus().isBadRequest()
     and: 'the error message tells us that the limit must be smaller'
-    result.andExpect(status().reason("limit must be less than 10000."))
+    result.expectBody().jsonPath('$.message').isEqualTo("limit must be less than 10000.")
 
     where:
     limit << [10000, 10001, 100000000]
