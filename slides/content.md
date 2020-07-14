@@ -29,21 +29,35 @@
 
 <-->
 
-```java
-@RunWith(SpringRunner.class)
+```groovy
 @SpringBootTest
-public class MyServiceTests {
-    @Autowired
-    private MyService service;
-    
-    @Test
-    public void serviceShouldWork() {
-        assertThat(service.sayHello()).isEqualTo("Hello, World!");
-    }
+@ContextConfiguration(classes = MyService)
+class MyServiceTests extends Specification {
+  @Autowired
+  private MyService sut
+
+  def "world is greeted"() {
+    when: "we want a greeting"
+    def result = sut.sayHello()
+
+    then: "the world is greeted"
+    result == "Hello, World!"
+  }
+
+  def "specified person #person is greeted with #expected"() {
+    when: "we want a specific greeting"
+    def result = sut.sayHelloTo(name)
+
+    then: "the greeting meets our demands"
+    result == expected
+
+    where:
+    name    | expected
+    "World" | "Hello, World!"
+    "Chris" | "Hello, Chris!"
+  }
 }
 ```
-
-<--->
 
 ## Spring Boot Test Starter comes with
 
@@ -62,7 +76,8 @@ public class MyServiceTests {
 * Spring Boot Project from scratch
 * Fizz-Buzz
 * TDD micro-cycle
-* Java with Maven+JUnit+Lombok
+* Java with Maven+Lombok for Implementation
+* Spock for Testing (cause it's groovy ❤️)
 
 <-->
 
@@ -75,15 +90,14 @@ Hipster stuff 😉
 <section tagcloud large>
     Kotlin
     Gradle
-    Groovy
-    Spock
     VAVR
+    Reactive Web
     WebFlux
+    Project Reactor
     Monads
     Applicatives
     Validation
     Either
-    Reactive Web
     JSON
     JPA
     JDBC
@@ -93,6 +107,7 @@ Hipster stuff 😉
     Cloud Connectors
     Spring Boot Profiles
     Configuration
+    Spring Security
 <section>
 
 <-->

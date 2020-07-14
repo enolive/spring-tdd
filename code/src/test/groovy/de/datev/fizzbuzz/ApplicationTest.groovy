@@ -6,12 +6,12 @@ import org.springframework.core.env.Environment
 import spock.lang.Specification
 
 @SpringBootTest
-class FizzBuzzApplicationTest extends Specification {
+class ApplicationTest extends Specification {
   @Autowired
   private Environment environment
 
-  def "context is loaded"() {
-    expect: 'environment exists'
+  def "context loads"() {
+    expect:
     environment != null
   }
 }
