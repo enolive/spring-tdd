@@ -77,10 +77,11 @@ layout: two-cols
 
 1. maven dependency `spring-boot-starter-test`
 2. Annotate your tests with `@SpringBootTest`
-3. Test
-4. Implement
-5. Refactor
-6. GOTO 3.
+3. Use `@ContextConfiguration` to limit your testing scope!
+4. Test
+5. Implement
+6. Refactor
+7. GOTO 4.
 
 </v-clicks>
 
