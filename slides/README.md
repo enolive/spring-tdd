@@ -1,13 +1,11 @@
-# Slides for TDD with Spring Boot
+# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
 
-These are my slides.
+To start the slide show:
 
-## Dynamic Web Version
+- `npm install`
+- `npm run dev`
+- visit http://localhost:3030
 
-1. `npm install`
-2. `npm start`
+Edit the [slides.md](./slides.md) to see the changes.
 
-## Static version
-
-I have also included a [static PDF version](resources/TDD%20with%20Spring%20Boot.pdf) of all slides
-that looks kind of okay.
+Learn more about Slidev on [documentations](https://sli.dev/).

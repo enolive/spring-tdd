@@ -1,43 +1,18 @@
 {
-  "name": "reveal.js",
-  "version": "3.7.0",
-  "description": "The HTML Presentation Framework",
-  "homepage": "http://revealjs.com",
-  "subdomain": "revealjs",
-  "main": "js/reveal.js",
+  "private": true,
   "scripts": {
-    "test": "grunt test",
-    "start": "grunt serve",
-    "build": "grunt"
+    "build": "slidev build --base /spring-tdd/",
+    "dev": "slidev",
+    "export": "slidev export"
   },
-  "author": {
-    "name": "Hakim El Hattab",
-    "email": "hakim.elhattab@gmail.com",
-    "web": "http://hakim.se"
+  "dependencies": {
+    "@slidev/cli": "^0.27.9",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*",
+    "slidev-theme-datev-scc": "^0.2.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
-  },
-  "engines": {
-    "node": ">=4.0.0"
-  },
+  "name": "slides",
   "devDependencies": {
-    "express": "^4.16.2",
-    "grunt": "^1.2.1",
-    "grunt-autoprefixer": "^3.0.4",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-connect": "^2.0.0",
-    "grunt-contrib-cssmin": "^3.0.0",
-    "grunt-contrib-jshint": "^2.0.0",
-    "grunt-contrib-qunit": "^3.1.0",
-    "grunt-contrib-uglify": "^4.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-retire": "^1.0.7",
-    "grunt-sass": "^3.0.2",
-    "grunt-zip": "~0.18.1",
-    "mustache": "^3.0.1",
-    "socket.io": "^2.2.0"
-  },
-  "license": "MIT"
+    "playwright-chromium": "^1.15.2"
+  }
 }
