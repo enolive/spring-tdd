@@ -1,7 +1,6 @@
 ---
 # try also 'default' to start simple
 theme: datev-scc
-highlighter: shiki
 lineNumbers: false
 download: true
 info: |
