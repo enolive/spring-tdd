@@ -143,7 +143,7 @@ class: text-3xl
 
 <v-clicks>
 
-* JUnit4
+* JUnit
 * AssertJ
 * Mockito
 * Test Utilities
