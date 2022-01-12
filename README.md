@@ -9,10 +9,10 @@ in about half an hour (try this with JEE, folks 😉).
 
 ## Structure
 
-* slides contains my presentation (done with Reveal.JS)
+* slides contains my presentation. It is also available on [GH Pages](https://enolive.github.io/spring-tdd)
 * code contains a sample project
+* hipster is the same sample project with hipster stuff
 
 ## Other Resources
 
-* [I've recorded the whole thing as a Screen Cast @ Youtube](https://youtu.be/RDRM4lnNMVo)
 * [Spring Boot Testing Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
