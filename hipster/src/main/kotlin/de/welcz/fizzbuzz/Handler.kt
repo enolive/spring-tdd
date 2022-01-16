@@ -7,8 +7,8 @@ import org.springframework.web.reactive.function.server.ServerRequest
 @Component
 class Handler(private val calculator: Calculator) {
   suspend fun getSingle(request: ServerRequest) =
-    either<ValidationError, String> {
-      val input = request.extractPathParameter("input") { it.toIntOrNull() }.bind()
+    either<RequestError, String> {
+      val input = request.extractNumberFromPath("input").bind()
       calculator.single(input)
     }.fold(
       { it.responseBadRequest() },
@@ -16,8 +16,8 @@ class Handler(private val calculator: Calculator) {
     )
 
   suspend fun getSequenceUpTo(request: ServerRequest) =
-    either<ValidationError, List<String>> {
-      val limit = request.extractQueryParam("limit", 100) { it.toIntOrNull() }.bind()
+    either<RequestError, List<String>> {
+      val limit = request.extractNumberFromQuery("limit", 100).bind()
       calculator.sequenceUpTo(limit)
     }.fold(
       { it.responseBadRequest() },

@@ -1,0 +1,11 @@
+= Fizz Buzz in Spring Boot
+
+Implementation of Fizz Buzz using some fancy, hipster stuff
+
+* Kotlin instead of Java
+* Gradle Kotlin DSL instead of Maven
+* https://kotest.io[Kotest] for testing instead of JUnit5
+* https://mockk.io[MockK] instead of Mockito for idiomatic mocking in Kotlin
+* https://spring.getdocs.org/en-US/spring-framework-docs/docs/spring-web-reactive/webflux/webflux.html[Spring WebFlux] instead of WebMVC
+* https://spring.getdocs.org/en-US/spring-framework-docs/docs/spring-web-reactive/webflux/webflux-fn.html[Functional endpoints] instead of `@RestController`
+* https://arrow-kt.io/docs/patterns/error_handling/[Arrow-Kt error handling] instead of exceptions

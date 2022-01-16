@@ -8,28 +8,27 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.queryParamOrNull
 
-suspend fun ValidationError.responseBadRequest() = ServerResponse.badRequest().bodyValueAndAwait(this.msg)
+suspend fun RequestError.responseBadRequest() = ServerResponse.badRequest().bodyValueAndAwait(this.msg)
 
 suspend fun Any.responseOk() = ServerResponse.ok().bodyValueAndAwait(this)
 
-fun <T> ServerRequest.extractPathParameter(paramName: String, conversionFn: (String) -> T?) =
+fun ServerRequest.extractNumberFromPath(paramName: String) =
   pathVariable(paramName)
-    .let(conversionFn)
+    .toIntOrNull()
     ?.right()
-    ?: ValidationError.ParamNotNumeric(paramName).left()
+    ?: RequestError.ParamNotNumeric(paramName).left()
 
-fun <T> ServerRequest.extractQueryParam(
+fun ServerRequest.extractNumberFromQuery(
   paramName: String,
-  defaultValue: T,
-  conversionFn: (String) -> T?,
-): Either<ValidationError.ParamNotNumeric, T> {
+  defaultValue: Int,
+): Either<RequestError.ParamNotNumeric, Int> {
   val limitParam = queryParamOrNull(paramName) ?: return defaultValue.right()
   return limitParam
-    .let(conversionFn)
+    .toIntOrNull()
     ?.right()
-    ?: ValidationError.ParamNotNumeric(paramName).left()
+    ?: RequestError.ParamNotNumeric(paramName).left()
 }
 
-sealed class ValidationError(val msg: String) {
-  class ParamNotNumeric(param: String) : ValidationError("'$param' is not a number.")
+sealed class RequestError(val msg: String) {
+  class ParamNotNumeric(param: String) : RequestError("'$param' is not a number.")
 }

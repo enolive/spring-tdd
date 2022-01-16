@@ -1,11 +1,10 @@
 package de.welcz.fizzbuzz
 
 import com.ninjasquad.springmockk.MockkBean
-import io.kotest.assertions.json.shouldMatchJson
+import de.welcz.fizzbuzz.helper.shouldHaveJsonBody
 import io.kotest.core.spec.style.DescribeSpec
 import io.mockk.every
 import io.mockk.verify
-import org.intellij.lang.annotations.Language
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ContextConfiguration
@@ -67,7 +66,3 @@ class HandlerTest(
     }
   }
 })
-
-private infix fun WebTestClient.ResponseSpec.shouldHaveJsonBody(@Language("json") expectedJson: String) {
-  expectBody<String>().consumeWith { it.responseBody.shouldMatchJson(expectedJson) }
-}
