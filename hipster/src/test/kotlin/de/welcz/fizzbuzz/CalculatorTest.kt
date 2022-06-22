@@ -1,6 +1,7 @@
 package de.welcz.fizzbuzz
 
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.datatest.WithDataTestName
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
@@ -9,9 +10,11 @@ class CalculatorTest : DescribeSpec({
 
   describe("calculation") {
     describe("calculates single number") {
-      data class TestCase(val input: Int, val expected: String)
+      data class TestCase(val input: Int, val expected: String): WithDataTestName {
+        override fun dataTestName() = "$input to $expected"
+      }
+
       withData(
-        nameFn = { "${it.input} to ${it.expected}" },
         TestCase(1, "1"),
         TestCase(2, "2"),
         TestCase(3, "Fizz"),
@@ -27,9 +30,11 @@ class CalculatorTest : DescribeSpec({
     }
 
     describe("calculates sequence") {
-      data class TestCase(val limit: Int, val expected: List<String>)
+      data class TestCase(val limit: Int, val expected: List<String>) : WithDataTestName {
+        override fun dataTestName() = "up to $limit"
+      }
+
       withData(
-        nameFn = { "up to ${it.limit}" },
         TestCase(0, emptyList()),
         TestCase(1, listOf("1")),
         TestCase(3, listOf("1", "2", "Fizz")),
