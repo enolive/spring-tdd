@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.springframework.boot") version "2.6.2"
+  id("org.springframework.boot") version "2.7.0"
   id("io.spring.dependency-management") version "1.0.11.RELEASE"
-  kotlin("jvm") version "1.6.10"
-  kotlin("plugin.spring") version "1.6.10"
+  kotlin("jvm") version "1.6.21"
+  kotlin("plugin.spring") version "1.6.21"
 }
 
 group = "de.welcz"
@@ -23,7 +23,8 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-  implementation("io.arrow-kt:arrow-core:1.0.1")
+  implementation("io.arrow-kt:arrow-core:1.1.2")
+  implementation("io.github.microutils:kotlin-logging:2.1.23")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 
@@ -34,13 +35,13 @@ dependencies {
   testImplementation("io.kotest:kotest-assertions-json")
   testImplementation("io.kotest:kotest-property")
   testImplementation("io.kotest:kotest-framework-datatest")
-  testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.0")
-  testImplementation("com.ninja-squad:springmockk:3.1.0")
+  testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.1")
+  testImplementation("com.ninja-squad:springmockk:3.1.1")
 }
 
 dependencyManagement {
   imports {
-    mavenBom("io.kotest:kotest-bom:5.0.3")
+    mavenBom("io.kotest:kotest-bom:5.3.0")
   }
 }
 

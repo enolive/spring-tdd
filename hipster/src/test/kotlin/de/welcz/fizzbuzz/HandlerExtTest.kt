@@ -85,21 +85,15 @@ class TestRoutes {
       42.responseOk()
     }
     GET("/bad-request") {
-      RequestError.ParamNotNumeric("foo").responseBadRequest()
+      RequestError.ParamNotNumeric("foo").responseError()
     }
-    GET("/number-from-path/{input}") {
-      it.extractNumberFromPath("input")
-        .fold(
-          { error -> error.responseBadRequest() },
-          { param -> param.responseOk() }
-        )
+    GET("/number-from-path/{input}") { req ->
+      req.extractNumberFromPath("input")
+        .foldServerResponse { it.responseOk() }
     }
-    GET("/number-from-query") {
-      it.extractNumberFromQuery("param", 100)
-        .fold(
-          { error -> error.responseBadRequest() },
-          { param -> param.responseOk() }
-        )
+    GET("/number-from-query") { req ->
+      req.extractNumberFromQuery("param", 100)
+        .foldServerResponse { it.responseOk() }
     }
   }
 }

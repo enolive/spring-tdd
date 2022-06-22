@@ -3,12 +3,20 @@ package de.welcz.fizzbuzz
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
+import mu.KotlinLogging
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.queryParamOrNull
 
-suspend fun RequestError.responseBadRequest() = ServerResponse.badRequest().bodyValueAndAwait(this.msg)
+private val log = KotlinLogging.logger { }
+
+suspend fun RequestError.responseError(): ServerResponse {
+  log.warn { this }
+  return when (this) {
+    is RequestError.ParamNotNumeric -> ServerResponse.badRequest().bodyValueAndAwait(this.msg)
+  }
+}
 
 suspend fun Any.responseOk() = ServerResponse.ok().bodyValueAndAwait(this)
 
@@ -30,5 +38,8 @@ fun ServerRequest.extractNumberFromQuery(
 }
 
 sealed class RequestError(val msg: String) {
-  class ParamNotNumeric(param: String) : RequestError("'$param' is not a number.")
+  data class ParamNotNumeric(val param: String) : RequestError("'$param' is not a number.")
 }
+
+suspend fun <T> Either<RequestError, T>.foldServerResponse(f: suspend (T) -> ServerResponse) =
+  fold({ it.responseError() }, { f(it) })

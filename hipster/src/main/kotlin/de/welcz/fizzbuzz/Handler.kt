@@ -1,6 +1,6 @@
 package de.welcz.fizzbuzz
 
-import arrow.core.computations.either
+import arrow.core.continuations.either
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 
@@ -10,19 +10,13 @@ class Handler(private val calculator: Calculator) {
     either<RequestError, String> {
       val input = request.extractNumberFromPath("input").bind()
       calculator.single(input)
-    }.fold(
-      { it.responseBadRequest() },
-      { it.responseOk() }
-    )
+    }.foldServerResponse { it.responseOk() }
 
   suspend fun getSequenceUpTo(request: ServerRequest) =
     either<RequestError, List<String>> {
       val limit = request.extractNumberFromQuery("limit", 100).bind()
       calculator.sequenceUpTo(limit)
-    }.fold(
-      { it.responseBadRequest() },
-      { it.responseOk() }
-    )
+    }.foldServerResponse { it.responseOk() }
 }
 
 
